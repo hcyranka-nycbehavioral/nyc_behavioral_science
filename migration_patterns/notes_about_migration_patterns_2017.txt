@@ -1,0 +1,29 @@
+Notes about migration pattterns:
+
+
+##Total out migration from NYC to other states
+
+1 - Most migration goes to either NY or neighboring states (especially NJ).
+2 - Removing neighboring states, we start to see the importance of Florida
+
+##The "March to the South" from NYC is clearer when we look at net migration:
+
+If we exclude neighboring states and internal movements, the top 5 states are:
+	- Florida
+	- California (This one is interesting)
+	- North Carolina
+	- Georgia
+	- Texas
+
+	- And the net migration from Florida is twice as large as it is from California
+
+Where do people go in Florida?
+	 - Miami-Dade County, mostly
+	 - If we aggregate the data by Media Market, over 50% of migration from NYC to 
+	 Florida is concentrated in Miami and the Orlando media markets.
+	 - The map makes it even clearer
+
+Open questions:
+
+- What are the consequences? Can we bring these people back?
+- The data (collected and estimated before Covid) suggest that migration to Florida (and to the South) was already under way.
