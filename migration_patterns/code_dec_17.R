@@ -121,3 +121,67 @@ urbnmapr::counties %>%
     theme(legend.position = "bottom") + 
     guides(fill = guide_colorbar(title.position = "top",barwidth = 20))
 
+# Create national map -----------------------------------------------------
+ny_net_migration <- nyc %>%
+    dplyr::select(1:7,"net_migration_b_to_a") %>%
+    mutate(
+        county_fips_full_a = str_replace(paste0(state_code_geo_a,fips_county_code_geo_a),"^0",""),
+        county_fips_full_b = str_replace(paste0(state_code_geo_b,fips_county_code_geo_b),"^0","")
+    ) %>%
+    group_by(county_fips_full_b) %>%
+    summarize(
+        total_flow = sum(net_migration_b_to_a)
+    )  %>%
+    rename(county_fips = 1)
+
+
+urbnmapr::counties %>%
+    left_join(
+        ny_net_migration
+    ) %>%
+    mutate(pos_neg_indicator = case_when(
+        total_flow >0 ~ "Positive",
+        total_flow <0 ~ "Negative",
+        TRUE ~ ""
+    )) %>%
+    ggplot(aes(x = long, y = lat, fill = pos_neg_indicator, group = group))+ 
+    geom_polygon(color = "gray85", size = 0.1
+                 ,show.legend = FALSE) +
+    theme_void() + 
+    labs(fill = "Total flow from NYC 2015-2019",
+         caption = "National net migration from NYC counties. Orange represents negative migration, green positive, and gray untracked/missing") + 
+    theme(legend.position = "bottom") + 
+    scale_fill_manual(
+        values = c("Gray90","coral","darkcyan")
+    ) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45)
+
+# -------------------------------------------------------------------------
+top_media_markets_national_net_migration <- nyc %>%
+    #filter(state_name_geo_b == "Florida") %>%
+    mutate(county_fips_full = str_replace(paste0(state_code_geo_b,fips_county_code_geo_b),"^0","")) %>%
+    inner_join(read_csv("county_to_dma_2018.csv"), by = c("county_fips_full" = "county_fips")) %>%
+    group_by(media_market) %>%
+    summarize(total_flow = sum(net_migration_b_to_a, na.rm = TRUE)) %>%
+    ungroup() %>%
+    arrange(total_flow)
+
+top_media_markets_national_total_flow <- nyc %>%
+    #filter(state_name_geo_b == "Florida") %>%
+    mutate(county_fips_full = str_replace(paste0(state_code_geo_b,fips_county_code_geo_b),"^0","")) %>%
+    inner_join(read_csv("county_to_dma_2018.csv"), by = c("county_fips_full" = "county_fips")) %>%
+    group_by(media_market) %>%
+    summarize(total_flow_from_ny = sum(a_to_b_counterflow, na.rm = TRUE),
+              total_flow_to_ny = sum(b_to_a_flow, na.rm = TRUE)) %>%
+    ungroup() %>%
+    arrange(desc(total_flow_from_ny)) %>%
+    mutate(index = total_flow_from_ny/total_flow_to_ny)
+
+##Generate index
+top_media_markets_national_total_flow %>%
+    filter(!is.infinite(index),
+           total_flow_from_ny >1000) %>%
+    arrange(desc(index))
+
+
+

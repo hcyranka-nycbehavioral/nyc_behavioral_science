@@ -27,3 +27,22 @@ Open questions:
 
 - What are the consequences? Can we bring these people back?
 - The data (collected and estimated before Covid) suggest that migration to Florida (and to the South) was already under way.
+
+---------------------------
+Edits December 24:
+
+- If we look at the national map, we see that the movement to places like Georgia, Florida, and
+North Carolina is usually concentrated along the coast? 
+- Maybe we talking about snow birds that are making their residency there permanently?
+- In terms of migration to NY, we have some interesting movement from New England and in some border counties.
+The map is an indicator only, but what could that mean?
+
+- Looking at net migration by Media Market (which should give us roughly the data by city/metro area), it provides a somewhat interesting picture. Internal migration still reigns, but we see movements to places in Pennsylvania, upstate, but also a lot of places in the south.
+	- What if NY is losing people in general, not only to other states, but to other metro areas?
+
+
+- Also, I analyzed by Media Market the total flow from NY divided by Total Flow to NY for each DMA. This generates an index.
+If we filter out the small flows (I am putting a floor of 1,000), and arrange the data, i think this generates an interesting data point: 
+	- While the total flow in absolute numbers is not that large, NY sends 5 more times more people to Fort Myers, Florida
+	than it receives from the same area.
+	- Similar thing with Charlotte, NC: The flow from NY is 4 times greater than the flow to NY.
