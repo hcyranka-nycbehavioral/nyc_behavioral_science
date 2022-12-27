@@ -1,0 +1,20 @@
+Notes on tax revenue
+
+1 - Property taxes has been the primary source of tax revenue for the city since 1980 (chart starting on line 32).
+
+2 - If we analyze percent growth from the previous year, we see that the Mortage Recording Tax has averaged a 10% annual growth since 1980 (the largest). Property taxes have averaged a 3.82% growth, whereas personal income tax averaged 6.25% (calculations between lines 50 and 60). If we consider the median growth, income taxes also grew slightly faster than property taxes (7.46% vs. 6.37%) (lines 50 - 62)
+
+3 - However, if we compare the first year (1980) with the last (2020) and analyze how much each source was responsible proportionally for city revenue, we see that Personal income taxes rose from 12.6% to 21.8% of total revenue, while property taxes are basically stable (45.9% to 47.3%) (lines 65 - 93)
+
+4 - If we isolate income taxes and property taxes and looked at their indexed growth trajectory, we have that, compared to 1980, income taxes are 16x greater, while property taxes are around 9.3x greater. (lines 96-123)
+
+5 - Based on discussion on Slack (population growth): 
+	- I took the CPI-U numbers from Minneapolis fed here to apply a deflator(https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-)
+	- Population grew by 24% between 1980 and 2020
+	- In real terms, income increased by almost 400% (2020 x 1980)
+	- And property grew by 197%
+	(lines 149 - 156)
+
+
+
+
