@@ -93,6 +93,23 @@ added_proportions %>%
     arrange(desc(total_change)) %>%
     mutate_at(c(2:4), .funs = ~scales::percent(., accuracy =0.1))
 
+proportion_chart <- added_proportions %>%
+    ungroup() %>%
+    ggplot(aes(x = year, y = pct_of_total, fill = tax_source)) + 
+    geom_area() + 
+    scale_y_continuous(labels = scales::comma) + 
+    scale_fill_brewer(palette = "Spectral") + 
+    theme_minimal() + 
+    labs(x= "Year", y = "% of total",
+         fill = "Tax source",
+         title = "% of total tax revenue by source") + 
+    theme(
+        legend.position = "bottom"
+    ) + 
+    guides(fill = guide_legend(title.position = "top", 
+                               title.hjust = 0.5))
+
+
 # Index on first ----------------------------------------------------------
 index_on_first <- no_transf %>%
     mutate(tax_source = str_to_title(str_replace_all(tax_source, "_"," "))) %>%
