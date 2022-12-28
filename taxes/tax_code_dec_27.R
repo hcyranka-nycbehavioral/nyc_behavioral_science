@@ -166,9 +166,36 @@ bring_deflator <- bring_deflator %>%
 real_growth_dataset <- index_on_first %>%
     dplyr::select(1:3) %>%
     inner_join(select(bring_deflator, 1,5)) %>%
-    mutate(adjusted_dollars = total_value/adjustment)
+    mutate(adjusted_dollars = total_value/adjustment) %>%
+    mutate(index_first = adjusted_dollars/first(adjusted_dollars))
 
 real_growth_dataset %>%
-    mutate(index_first = adjusted_dollars/first(adjusted_dollars)) %>%
     filter(year == 2020)
+    
+# Population --------------------------------------------------------------
+population <- read.socrata("https://data.cityofnewyork.us/resource/ia2d-e54m.json") %>%
+    as_tibble() %>%
+    janitor::clean_names() %>%
+    arrange(year) %>%
+    mutate_all(.funs = ~as.numeric(.)) %>%
+    dplyr::select(1,2) %>%
+    filter(between(year, 1980, 2020)) %>%
+    mutate(pop_index = new_york_city_population/first(new_york_city_population))
+
+
+real_growth_dataset %>%
+    ungroup() %>%
+    dplyr::select(year, tax_source, index_first)  %>%
+    inner_join(select(population, year, pop_index)) %>%
+    dplyr::filter(tax_source == "Personal Income General Fund Revenue") %>%
+    ggplot(aes(x = year, y = index_first)) + 
+    geom_line(color = "darkgreen") + 
+    geom_point(color = "darkgreen") +
+    geom_line(aes(x = year, y = pop_index),color = "blue") + 
+    geom_point(aes(x = year, y = pop_index),color = "blue") + 
+    theme_minimal() + 
+    labs(x= "Year", y = "Indexed total (1980 = 1)",
+         title = "Indexed growth trajectory of Personal Income Taxes Revenue and NYC Population",
+         subtitle = "Index = 1 in 1980 (first year on dataset)",
+         caption = "Dark green line refers to Personal Income Taxes Revenue") 
     
